@@ -7,13 +7,26 @@ Usage:
     >>> find_doi.find(title, journal)
 
 Returns:
-
+    None, or
+    bibrec, a Python dictionary
 
 Execute module as a script:
     python3 find_doi.py title journal
 
     e.g.
     python3 find_doi.py "Non-cuttable material inspired by seashells" "TheScienceBreaker"
+
+    returns:
+    {'author': 
+        [{'given': 'Stefan', 'family': 'Szyniszewski', 'sequence': 'first', 'affiliation': []}, 
+        {'given': 'Miranda', 'family': 'Anderson', 'sequence': 'additional', 'affiliation': []}], 
+    'title': ['Non-cuttable material inspired by seashells'], 
+    'journal': ['TheScienceBreaker'], 
+    'issue': '03', 
+    'volume': '07', 
+    'pages': '', 
+    'pub_year': 2021, 
+    'doi': 'http://doi.org/10.25250/thescbr.brk569'}
 
 
 Request URL:
@@ -33,9 +46,6 @@ import urllib
 import requests
 from requests.structures import CaseInsensitiveDict
 
-#test dois
-#  Stefan:  10.25250/thescbr.brk569
-#  Jas:     10.1021/acsanm.1c03151
 
 def find(title, journal):
     new_title = title.replace(' ', '+')
@@ -53,12 +63,18 @@ def find(title, journal):
     print(response.status_code)
 
     if response.status_code == 200:
-        bibrec = read(response.json()['message']['items'][0])
-        print(bibrec)
+        my_dict = (response.json()['message']['items'][0])
+        if my_dict['title'][0] == title:
+            bibrec = read(my_dict)
+            print(bibrec)
+            return bibrec
+        else:
+            print('Did not find "' + title + '" in Crossref database')
     elif response.status_code == 429:
         print('Too many API requests.  Please wait a short while and try your request again at a lower rate and/or with lower concurrency.')
+        return None
     else:
-        print('Did not find ' + title + ' in Crossref database')
+        print('Did not find "' + title + '" in Crossref database')
         return None
 
 def read(d):
