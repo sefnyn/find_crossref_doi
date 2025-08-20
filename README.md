@@ -6,7 +6,7 @@ A couple of scripts that take one or more journal articles and look for DOIs in 
 pip3 install requests
 
 ## Find one DOI
-Usage:  python3 find_doi.py "title of journal article" "title of journal"   <-- Quotation marks are mandatory
+Usage:  python3 find_doi.py "title of journal article" "title of journal"   <-- Quotation marks or single quotes are mandatory
 
 ### Example 1:
 > $ python3 find_doi.py 'Non-cuttable material inspired by seashells' 'TheScienceBreaker'  
