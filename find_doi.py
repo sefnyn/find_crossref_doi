@@ -60,11 +60,12 @@ def find(title, journal):
              }
  
     response = requests.get(url, headers=headers, params=params)
-    print(response.status_code)
+    print('HTTP response ' +  str(response.status_code))
 
     if response.status_code == 200:
         my_dict = (response.json()['message']['items'][0])
         if my_dict['title'][0] == title:
+            print('Found DOI')
             bibrec = read(my_dict)
             print(bibrec)
             return bibrec
