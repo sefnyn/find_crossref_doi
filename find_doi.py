@@ -70,12 +70,12 @@ def find(title, journal):
             print(bibrec)
             return bibrec
         else:
-            print('Did not find "' + title + '" in Crossref database')
+            print('Did not find DOI in Crossref database for ' + title)
     elif response.status_code == 429:
         print('Too many API requests.  Please wait a short while and try your request again at a lower rate and/or with lower concurrency.')
         return None
     else:
-        print('Did not find "' + title + '" in Crossref database')
+        print('Did not find DOI in Crossref database for ' + title)
         return None
 
 def read(d):

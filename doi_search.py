@@ -46,7 +46,7 @@ def read_research_outputs(filename):
                 if title == 'Title' and journal == 'Journal':
                     print('Skipping field names...')
                 else:
-                    print(row)
+                    print('Searching Crossref for ' + str(row))
                     count += 1
                     result = find_doi.find(title, journal)
                     if result == None:
