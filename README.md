@@ -38,9 +38,10 @@ Output ID,Title of paper,Journal
 
 ### Example:  
 Contents of CSV_FILE:  
-Output ID,Title,Journal                                                                                              
-4423337,Human dexterity and brains evolved hand in hand,Communications Biology  
-3966057,Words Without Intentions,Croatian Journal of Philosophy  
+    Output ID,Title,Journal                                                                                              
+    4423337,Human dexterity and brains evolved hand in hand,Communications Biology  
+    3966057,Words Without Intentions,Croatian Journal of Philosophy  
+
 
     $ python3 doi_search.py CSV_FILE  
     Skipping field names...  
