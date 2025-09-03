@@ -28,9 +28,28 @@ Usage:  python3 find_doi.py "title of journal article" "title of journal"   <-- 
 ### Example 2:
     $ python3 find_doi.py "Trans-conceptual sampling Bayesian inference with competing assumptions" "Journal of Geophysical Research Solid Earth"  
       HTTP response 200  
-      Did not find "Trans-conceptual sampling Bayesian inference with competing assumptions" in Crossref database   
+      Did not find DOI in Crossref database for "Trans-conceptual sampling Bayesian inference with competing assumptions"  
 
-## Search for DOIs
+## Search for DOIs in file
 Usage:  python3 doi_search.py CSV_FILE  
 
 Format of CSV_FILE:
+Output ID,Title of paper,Journal  
+
+### Example 1:  
+Contents of CSV_FILE:  
+Output ID,Title,Journal                                                                                              
+4423337,Human dexterity and brains evolved hand in hand,Communications Biology  
+3966057,Words Without Intentions,Croatian Journal of Philosophy  
+
+$ python3 doi_search.py CSV_FILE
+
+
+
+
+
+
+
+
+
+
