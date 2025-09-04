@@ -33,7 +33,7 @@ Usage:  python3 find_doi.py "title of journal article" "title of journal"   <-- 
 ## Search for DOIs in file
 Usage:  python3 doi_search.py CSV_FILE  
 
-Format of CSV_FILE:
+Format of CSV_FILE:  
 Output ID,Title of paper,Journal  
 
 ### Example:  
