@@ -20,7 +20,7 @@ Output CSV file(s):
 TBC
 
 """
-import csv, sys
+import os, csv, sys
 # My modules
 import find_doi
 
@@ -31,10 +31,15 @@ csv_misses = 'misses.csv'
 csv_hits   = 'hits.csv'
 
 def read_research_outputs(filename):
+    fname = os.path.splitext(filename)[0]
+    ext   = os.path.splitext(filename)[1]
+    new   = fname + "_processed" + ext
     fh1 = open(csv_misses, 'w')
     writer1 = csv.writer(fh1)
     fh2 = open(csv_hits, 'w')
     writer2   = csv.writer(fh2)
+    fh3 = open(new, 'w')
+    writer3   = csv.writer(fh3)
     global count, misses, hits
     with open(filename, newline='') as f:
         reader = csv.reader(f, dialect='excel', delimiter=',')
@@ -46,37 +51,37 @@ def read_research_outputs(filename):
                 if title == 'Title' and journal == 'Journal':
                     print('Skipping field names...')
                 else:
+                    print()
                     print('Searching Crossref for ' + str(row))
                     count += 1
                     result = find_doi.find(title, journal)
                     if result == None:
                         misses += 1
                         writer1.writerow(row)
+                        writer3.writerow(row)
 
                     else:
                         hits += 1
                         doi = result['doi']
                         writer2.writerow([oid, title, journal, doi])
+                        writer3.writerow([oid, title, journal, doi])
             print('Processed ' + str(count) + ' journal articles')
             print('Found ' + str(hits) + ' DOIs')
             print(str(misses) + ' journal articles without a DOI')
+            print()
+            print('Created three files:')
+            print(csv_misses + ' contains journal articles without DOIs')
+            print(csv_hits + ' contains journal articles with DOIs')
+            print(new + ' contains DOIs in 4th column')
         except csv.Error as e:
             sys.exit(f'file {filename}, line {reader.line_num}: {e}')
 
-
-def process_research_output(oid, ti, jo):
-    global count, misses, hits
-    result = find_doi.find(ti, jo)
-    if result == None:
-        misses += 1
-        print('Write to misses.csv')
-    else:
-        hits += 1
-        print('Write to hits.csv')
-
-
 def main():
-    read_research_outputs(sys.argv[1])
+    try:
+        read_research_outputs(sys.argv[1])
+    except IndexError:
+        filepath = __file__.split('/')
+        print('Usage:  python3 ' + filepath.pop()  + ' CSV_FILE where CSV_FILE is in format OutputID,Title,Journal')
 
 if __name__ == '__main__':
     sys.exit(main())
