@@ -46,6 +46,7 @@ Contents of CSV_FILE (line numbers for information only):
 
     $ python3 doi_search.py CSV_FILE  
     Skipping field names...  
+    
     Searching Crossref for ['4423337', 'Human dexterity and brains evolved hand in hand', 'Communications Biology']  
     HTTP response 200  
     Found DOI  
@@ -71,5 +72,9 @@ Contents of CSV_FILE (line numbers for information only):
     Found 1 DOIs  
     1 journal articles without a DOI  
 
+    Created three files:
+    misses.csv contains journal articles without DOIs
+    hits.csv contains journal articles with DOIs
+    CSV_FILE_processed.csv contains DOIs in 4th column
 
 
